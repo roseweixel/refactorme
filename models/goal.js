@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var PostSchema = new Schema({
+var GoalSchema = new Schema({
     name: String,
     date: Date, 
     creator: String,
-    content: String
+    description: String
 });
 
-module.exports = mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('Goal', GoalSchema);
