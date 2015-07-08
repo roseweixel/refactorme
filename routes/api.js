@@ -5,7 +5,7 @@ var goals = require('./api/goal');
 
 // Posts routes 
 router.route('/goals')
-    .post(function(req, res) { goals.Goal(req, res) })
+    .post(function(req, res) { goals.addGoal(req, res) })
     .get(function(req, res) { goals.getAllGoals(req, res) });
 
 // Single post routes
