@@ -24,4 +24,11 @@ module.exports.getSingleGoal = function(req, res, id) {};
 
 module.exports.updateGoal = function(req, res, id) {};
 
-module.exports.deleteGoal = function(req, res, id) {};
+module.exports.deleteGoal = function(req, res, id) {
+    Goal.findByIdAndRemove(id, function(err) {
+        if (err) {
+            res.send(err);
+        }
+        res.sendStatus(200);
+    });
+};

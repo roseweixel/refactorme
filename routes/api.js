@@ -9,9 +9,9 @@ router.route('/goals')
     .get(function(req, res) { goals.getAllGoals(req, res) });
 
 // Single post routes
-router.route('/posts/:post_id')
-    .get(function(req, res) { goals.getSingleGoal(req, res, req.params.post_id) })
-    .put(function(req, res) { goals.updateGoal(req, res, req.params.post_id) })
-    .delete(function(req, res) { goals.deleteGoal(req, res, req.params.post_id) });
+router.route('/goals/:goal_id')
+    .get(function(req, res) { goals.getSingleGoal(req, res, req.params.goal_id) })
+    .put(function(req, res) { goals.updateGoal(req, res, req.params.goal_id) })
+    .delete(function(req, res) { goals.deleteGoal(req, res, req.params.goal_id) });
 
 module.exports = router;
