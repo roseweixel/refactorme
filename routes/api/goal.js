@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Goal = require('../../models/goal');
 
 module.exports.addGoal = function(req, res) {
-    var goal = new Goal(req.body.post);
+    var goal = new Goal(req.body.goal);
     goal.save(function(err) {
         if (err) {
             res.send(err);
@@ -29,6 +29,19 @@ module.exports.deleteGoal = function(req, res, id) {
         if (err) {
             res.send(err);
         }
+        res.sendStatus(200);
+    });
+};
+
+module.exports.deleteGoals = function(req, res) {
+    Goal.find(function(err, goals) {
+        goals.forEach(function(goal) {
+            Goal.findByIdAndRemove(goal.id, function(err) {
+                if (err) {
+                    res.send(err);
+                }
+            });
+        });
         res.sendStatus(200);
     });
 };
