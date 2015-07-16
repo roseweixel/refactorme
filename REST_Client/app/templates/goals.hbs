@@ -1,0 +1,8 @@
+<h1>Goals</h1>
+{{#each model as |goal|}}
+<h3>{{goal.name}}</h3>    
+<p>{{goal.description}}</p>  
+<p>Start Date: {{goal.startDate}}</p>
+<p>End Date: {{goal.endDate}}</p>
+{{/each}}
+{{outlet}}
