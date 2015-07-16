@@ -1,6 +1,7 @@
 <h1>Goals</h1>
 {{#each model as |goal|}}
-<h3>{{goal.name}}</h3>    
+<h3>{{goal.name}}</h3> 
+<h4>User: {{goal.user.name}}</h4>   
 <p>{{goal.description}}</p>  
 <p>Start Date: {{goal.startDate}}</p>
 <p>End Date: {{goal.endDate}}</p>

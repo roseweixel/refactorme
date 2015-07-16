@@ -1,8 +1,17 @@
 var mongoose = require('mongoose');
 var Goal = require('../../models/goal');
+var User = require('../../models/user');
 
 module.exports.addGoal = function(req, res) {
     var goal = new Goal(req.body.goal);
+    User.findByIdAndUpdate(goal.user,
+      { $push: { goals: goal }},
+      { safe: true, upsert: true },
+      function(err) {
+        if (err) {
+            res.send(err);
+        }
+      });
     goal.save(function(err) {
         if (err) {
             res.send(err);
