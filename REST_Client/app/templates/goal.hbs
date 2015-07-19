@@ -1,6 +1,6 @@
-<p>{{model.name}}</p> 
-<p>User: {{model.user.name}}</p>   
-<p>{{model.description}}</p>  
-<p>Start Date: {{model.startDate}}</p>
-<p>End Date: {{model.endDate}}</p>
+<h4>{{model.name}}</h4>   
+<p>Description: {{model.description}}</p>  
+<p>Start Date: {{date-and-time model.startDate}}</p>
+<p>Time Since Start: {{time-ago-in-words model.startDate}}</p>
+<p>End Date: {{date-and-time model.endDate}}</p>
 

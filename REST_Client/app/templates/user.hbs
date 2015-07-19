@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="medium-12 columns">
+    <h1>{{model.name}}</h1>
+    <p>Joined: {{date-and-time model.joinDate}}</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="medium-4 columns">
+  <h3>Goals</h3>
+  {{#each model.goals as |goal|}}
+    <li>{{#link-to 'goal' goal}}{{goal.name}}{{/link-to}}</li>  
+  {{/each}}
+  </div>
+
+  <div class="medium-8 columns">
+    {{outlet}}
+  </div>
+</div>

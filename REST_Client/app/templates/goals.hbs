@@ -1,20 +1,5 @@
 <div class="row">
-  <div class="medium-12 columns">
-    <h1>Goals</h1>
-  </div>
-</div>
-<div class="row">
-  <div class="medium-6 columns">
-  {{#each model as |goal|}}
-    <h3>{{#link-to 'goal' goal}}{{goal.name}}{{/link-to}}</h3> 
-    <h4>User: {{goal.user.name}}</h4>   
-    <p>{{goal.description}}</p>  
-    <p>Start Date: {{goal.startDate}}</p>
-    <p>End Date: {{goal.endDate}}</p>
-  {{/each}}
-  </div>
-
-  <div class="medium-6 columns">
+  <div class="medium-8 columns">
     {{outlet}}
   </div>
 </div>
