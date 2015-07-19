@@ -1,7 +1,11 @@
 <div class="row">
-  <div class="medium-12 columns">
+  <div class="medium-4 columns">
     <h1>{{model.name}}</h1>
     <p>Joined: {{date-and-time model.joinDate}}</p>
+  </div>
+  <div class="medium-8 columns">
+    <h3>Make a New Goal</h3>
+    {{partial 'new-goal'}}
   </div>
 </div>
 

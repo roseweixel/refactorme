@@ -6,7 +6,6 @@ module.exports.addGoal = function(req, res) {
     var goal = new Goal(req.body.goal);
     User.findByIdAndUpdate(goal.user,
       { $push: { goals: goal }},
-      { safe: true, upsert: true },
       function(err) {
         if (err) {
             res.send(err);
