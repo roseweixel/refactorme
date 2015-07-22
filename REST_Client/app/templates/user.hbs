@@ -13,7 +13,9 @@
   <div class="medium-4 columns">
   <h3>Goals</h3>
   {{#each model.goals as |goal|}}
-    <li>{{#link-to 'goal' goal}}{{goal.name}}{{/link-to}}</li>  
+    <li>
+    {{#link-to 'goal' goal}}{{goal.name}}{{/link-to}}
+    </li>  
   {{/each}}
   </div>
 

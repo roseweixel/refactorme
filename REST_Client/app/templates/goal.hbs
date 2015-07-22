@@ -1,6 +1,17 @@
+<button class='btn btn-success' {{action 'startEdit'}}>Edit</button>
+<button class='btn btn-success' {{action 'deleteGoal'}}>Delete</button>
+{{#if editing}}
+  <button {{action 'saveGoal'}}>Save</button>
+  <label>Name:</label>
+  {{input class="form-control" value=model.name}}
+  <label>Description:</label>
+  {{textarea class="form-control" value=model.description}}
+{{else}}
 <h4>{{model.name}}</h4>   
 <p>Description: {{model.description}}</p>  
 <p>Start Date: {{date-and-time model.startDate}}</p>
 <p>Time Since Start: {{time-ago-in-words model.startDate}}</p>
 <p>End Date: {{date-and-time model.endDate}}</p>
+{{/if}}
+
 
