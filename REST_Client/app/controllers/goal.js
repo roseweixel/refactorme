@@ -22,10 +22,7 @@ export default Ember.Controller.extend({
     },
     deleteGoal: function(){
       var goal = this.get('model');
-      var controller = this;
-      goal.destroyRecord().then(function(){
-        controller.transitionToRoute('goals');
-      });
+      goal.destroyRecord();
     }
   }
 });
