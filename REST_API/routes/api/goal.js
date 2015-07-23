@@ -49,7 +49,18 @@ module.exports.updateGoal = function(req, res, id) {
 };
 
 module.exports.deleteGoal = function(req, res, id) {
-    Goal.findByIdAndRemove(id, function(err) {
+    Goal.findById(id, function (err, goal) {
+        deleteYouselfFromUser(goal);
+    });
+
+    function deleteYouselfFromUser(goal) {
+        User.findOneAndUpdate({_id: goal.user}, {$pull: {goals: {_id: goal.id}}}, function(err, data){
+          console.log(err, data);
+        });
+    }
+
+    Goal.findByIdAndRemove(id, function(err, goal) {
+
         if (err) {
             res.send(err);
         }
