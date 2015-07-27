@@ -17,12 +17,20 @@ export default Ember.Controller.extend({
       var controller = this;
       goal.save()
       .then(function(){
+        var user = goal.get('user');
+        // debugger;
         controller.set('editing', false);
+        controller.transitionToRoute('goal', user, goal);
       });
     },
-    deleteGoal: function(){
-      var goal = this.get('model');
-      goal.destroyRecord();
-    }
+    deleteGoal: function(goal){
+      var controller = this;
+      var user = goal.get('user');
+      debugger;
+      goal.destroyRecord().then(function() {
+        debugger;
+        controller.transitionToRoute('user', user);
+      });
+    },
   }
 });

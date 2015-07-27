@@ -1,5 +1,7 @@
 <div class="input group">
+  <label>Name</label>
   {{input class="form-control" value=newName}}
+  <label>Description</label>
   {{textarea class="form-control" value=newDescription}}
   {{input type="hidden" value=userID}}
   <button {{action 'createGoal'}}>Create Goal</button>

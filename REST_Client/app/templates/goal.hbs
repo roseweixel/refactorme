@@ -1,5 +1,5 @@
 <button class='btn btn-success' {{action 'startEdit'}}>Edit</button>
-<button class='btn btn-success' {{action 'deleteGoal'}}>Delete</button>
+<button class='btn btn-success' {{action 'deleteGoal' model}}>Delete</button>
 {{#if editing}}
   <button {{action 'saveGoal'}}>Save</button>
   <label>Name:</label>

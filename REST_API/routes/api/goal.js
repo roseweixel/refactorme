@@ -55,13 +55,13 @@ module.exports.deleteGoal = function(req, res, id) {
 
     function deleteYouselfFromUser(goal) {
         User.findOneAndUpdate({_id: goal.user}, {$pull: {goals: goal.id}}).exec();
-    }
+    };
 
     Goal.findByIdAndRemove(id, function(err) {
         if (err) {
             res.send(err);
         }
-        res.sendStatus(200);
+        res.status(200).send({ success: true });
     });
 };
 
@@ -75,6 +75,6 @@ module.exports.deleteGoals = function(req, res) {
                 }
             });
         });
-        res.sendStatus(200);
+        res.status(200).send({ success: true });
     });
 };
