@@ -39,11 +39,12 @@ module.exports.getSingleGoal = function(req, res, id) {
 
 module.exports.updateGoal = function(req, res, id) {
     // updates only the fields that are sent through in the form data
-    Goal.findByIdAndUpdate(id, {$set: req.body.goal}, function(err, goal) {
+    Goal.findByIdAndUpdate(id, {$set: req.body.goal}, {new: true}, function(err, goal) {
         if (err) {
             res.send(err);
         }
         // the previous version of the goal is being returned, though the goal is being updated
+        console.log(goal);
         res.json({goal: goal});
     });
 };

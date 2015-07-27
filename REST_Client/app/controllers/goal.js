@@ -10,15 +10,14 @@ export default Ember.Controller.extend({
       var goal = this.get('model');
       var name = this.get('model.name');
       var description = this.get('model.description');
-
+  
       goal.set("name", name);
       goal.set("description", description);
 
       var controller = this;
       goal.save()
-      .then(function(){
+      .then(function(res){
         var user = goal.get('user');
-        // debugger;
         controller.set('editing', false);
         controller.transitionToRoute('goal', user, goal);
       });
@@ -26,7 +25,7 @@ export default Ember.Controller.extend({
     deleteGoal: function(goal){
       var controller = this;
       var user = goal.get('user');
-      debugger;
+      // debugger;
       goal.destroyRecord().then(function() {
         debugger;
         controller.transitionToRoute('user', user);
