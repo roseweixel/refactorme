@@ -30,6 +30,12 @@ var allowCrossDomain = function(req, res, next) {
   }
 };
 
+var common = require('./common');
+var config = common.config();
+
+var twitter_consumer_key= config.twitter_consumer_key;
+var twitter_consumer_secret = config.twitter_consumer_secret;
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
