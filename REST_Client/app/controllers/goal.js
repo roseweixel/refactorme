@@ -15,6 +15,7 @@ export default Ember.Controller.extend({
       goal.set("description", description);
 
       var controller = this;
+      
       goal.save()
       .then(function(){
         var user = goal.get('user');
@@ -25,7 +26,7 @@ export default Ember.Controller.extend({
     deleteGoal: function(goal){
       var controller = this;
       var user = goal.get('user');
-      // debugger;
+
       goal.destroyRecord().then(function() {
         controller.transitionToRoute('user', user);
       });

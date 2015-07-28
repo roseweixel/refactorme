@@ -36,6 +36,10 @@ var config = common.config();
 var twitter_consumer_key= config.twitter_consumer_key;
 var twitter_consumer_secret = config.twitter_consumer_secret;
 
+// app.post('/login', function(req, res) {
+//   res.redirect(307, "https://api.twitter.com/oauth/request_token");
+// });
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));

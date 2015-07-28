@@ -27,4 +27,9 @@ router.route('/users/:user_id')
     .put(function(req, res) { users.updateUser(req, res, req.params.user_id) })
     .delete(function(req, res) { users.deleteUser(req, res, req.params.user_id) });
 
+/* Twitter auth routes */
+router.route('/login')
+    .get(function(req, res) {
+        res.redirect("https://api.twitter.com/oauth/request_token") });
+
 module.exports = router;
