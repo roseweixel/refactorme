@@ -16,7 +16,7 @@ export default Ember.Controller.extend({
 
       var controller = this;
       goal.save()
-      .then(function(res){
+      .then(function(){
         var user = goal.get('user');
         controller.set('editing', false);
         controller.transitionToRoute('goal', user, goal);
@@ -27,7 +27,6 @@ export default Ember.Controller.extend({
       var user = goal.get('user');
       // debugger;
       goal.destroyRecord().then(function() {
-        debugger;
         controller.transitionToRoute('user', user);
       });
     },
