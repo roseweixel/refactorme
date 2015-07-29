@@ -78,5 +78,32 @@ app.use(function(err, req, res, next) {
   });
 });
 
+var passport = require('passport');
+var TwitterStrategy = require('passport-twitter').Strategy;
+
+passport.use(new TwitterStrategy({
+    consumerKey: twitter_consumer_key,
+    consumerSecret: twitter_consumer_secret,
+    callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
+  },
+
+  function(token, tokenSecret, profile, done) {
+    console.log(token);
+    // User.findOrCreate(..., function(err, user) {
+    //   if (err) { return done(err); }
+    //   done(null, user);
+    // });
+  }
+));
+console.log(passport);
+app.get('/auth/twitter', passport.authenticate('twitter'));
+
+// Twitter will redirect the user to this URL after approval.  Finish the
+// authentication process by attempting to obtain an access token.  If
+// access was granted, the user will be logged in.  Otherwise,
+// authentication has failed.
+app.get('/auth/twitter/callback',
+  passport.authenticate('twitter', { successRedirect: '/users',
+                                     failureRedirect: '/users' }));
 
 module.exports = app;
