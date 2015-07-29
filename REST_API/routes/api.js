@@ -1,5 +1,4 @@
 var express = require('express');
-var passport = require('passport');
 var router = express.Router();
 
 var goals = require('./api/goal');
@@ -28,15 +27,10 @@ router.route('/users/:user_id')
     .put(function(req, res) { users.updateUser(req, res, req.params.user_id) })
     .delete(function(req, res) { users.deleteUser(req, res, req.params.user_id) });
 
-
-// //Setting the twitter oauth routes
-// router.get('/auth/twitter', passport.authenticate('twitter', {
-//     failureRedirect: '/'
-// }));
-
-// router.get('/auth/twitter/callback', passport.authenticate('twitter', {
-//     failureRedirect: '/'
-// }));
+router.route('/handle_twitter_callback')
+    .get(function(req, res) {
+        console.log(req);
+    });
 
 module.exports = router;
 

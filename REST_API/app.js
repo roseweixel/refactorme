@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var session = require('express-session');
 
 mongoose.connect('mongodb://localhost/refactorme');
 
@@ -30,6 +31,9 @@ var allowCrossDomain = function(req, res, next) {
   }
 };
 
+var Grant = require('grant-express')
+  , grant = new Grant(require('./config.json'))
+
 var common = require('./common');
 var config = common.config();
 
@@ -44,6 +48,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(allowCrossDomain);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:'grant'}));
+app.use(grant);
 
 app.use('/api', api);
 
@@ -78,32 +84,10 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var passport = require('passport');
-var TwitterStrategy = require('passport-twitter').Strategy;
-
-passport.use(new TwitterStrategy({
-    consumerKey: twitter_consumer_key,
-    consumerSecret: twitter_consumer_secret,
-    callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
-  },
-
-  function(token, tokenSecret, profile, done) {
-    console.log(token);
-    // User.findOrCreate(..., function(err, user) {
-    //   if (err) { return done(err); }
-    //   done(null, user);
-    // });
-  }
-));
-console.log(passport);
-app.get('/auth/twitter', passport.authenticate('twitter'));
-
-// Twitter will redirect the user to this URL after approval.  Finish the
-// authentication process by attempting to obtain an access token.  If
-// access was granted, the user will be logged in.  Otherwise,
-// authentication has failed.
-app.get('/auth/twitter/callback',
-  passport.authenticate('twitter', { successRedirect: '/users',
-                                     failureRedirect: '/users' }));
+// app.get('/handle_twitter_callback', function () {
+//   debugger;
+//   this.body = JSON.stringify(this.query, null, 2);
+//   console.log(this.body);
+// });
 
 module.exports = app;
