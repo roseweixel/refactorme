@@ -10,7 +10,6 @@ var session = require('express-session');
 mongoose.connect('mongodb://localhost/refactorme');
 
 var app = express();
-
 var api = require('./routes/api');
 
 // view engine setup
@@ -48,10 +47,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(allowCrossDomain);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret:'grant'}));
+app.use(session({
+  name: 'grant', secret: 'very secret',
+  saveUninitialized: true, resave: true
+}));
 app.use(grant);
 
 app.use('/api', api);
+
+app.get('/handle_twitter_callback', function (req, res) {
+  var string = JSON.stringify(req.query);
+  var jsonified = JSON.parse(string);
+  var userInfo = jsonified.raw;
+  var oauthToken = jsonified.raw.oauth_token;
+  var oauthTokenSecret = jsonified.raw.oauth_token_secret;
+  var screenName = jsonified.raw.screen_name;
+  var userID = jsonified.raw.user_id;
+
+  res.redirect('/api/login?twitterToken=' + oauthToken + '&twitterSecret=' + oauthTokenSecret + '&twitterName=' + screenName + '&twitterID=' + userID);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -77,6 +91,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+  // console.log(req);
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
@@ -84,10 +99,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
-// app.get('/handle_twitter_callback', function () {
-//   debugger;
-//   this.body = JSON.stringify(this.query, null, 2);
-//   console.log(this.body);
-// });
 
 module.exports = app;
+

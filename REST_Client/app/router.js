@@ -6,7 +6,7 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('login', { path: '/auth/twitter' })
+  this.route('login', { path: '/login' });
   this.route('users');
   this.route('user', { path: '/users/:user_id' }, function(){
     this.resource('goals', function(){

@@ -5,6 +5,10 @@ var Schema = mongoose.Schema;
 var UserSchema = new Schema({
     name: String,
     joinDate: Date,
+    twitterID: Number,
+    twitterName: String,
+    twitterToken: String,
+    twitterSecret: String,
     goals: [{ type: mongoose.Schema.ObjectId, ref: 'Goal' }]
 });
 

@@ -29,6 +29,33 @@ module.exports.getSingleUser = function(req, res, id) {
     });
 };
 
+module.exports.findOrCreateByTwitterID = function(req, res) {
+
+    var twitterID = req.query.twitterID;
+
+    User.findOne({twitterID: twitterID}, function (err, user){
+        if (!user) {
+            var user = new User(req.query);
+            user.joinDate = new Date;
+            user.save(function(err) {
+                if (err) {
+                    res.send(err);
+                }
+                console.log({user: user});
+                res.redirect('http://localhost:4200/users/' + user.id);
+            });
+        } else {
+            User.findByIdAndUpdate(user.id, {$set: req.query}, {new: true}, function(err, user) {
+                if (err) {
+                    res.send(err);
+                }
+                res.redirect('http://localhost:4200/users/' + user.id);
+            });
+        }
+    });
+};
+
+
 module.exports.updateUser = function(req, res, id) {
     // updates only the fields that are sent through in the form data
     User.findByIdAndUpdate(id, {$set: req.body.user}, function(err, user) {

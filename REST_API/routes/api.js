@@ -19,7 +19,8 @@ router.route('/goals/:goal_id')
 /* Users routes */
 router.route('/users')  
     .post(function(req,res) { users.addUser(req,res) })
-    .get(function(req,res) { users.getAllUsers(req,res) });
+    .get(function(req,res) { users.getAllUsers(req,res) })
+    .delete(function(req, res) { users.deleteUsers(req, res) });
 
 /* Single user routes */
 router.route('/users/:user_id')  
@@ -27,13 +28,7 @@ router.route('/users/:user_id')
     .put(function(req, res) { users.updateUser(req, res, req.params.user_id) })
     .delete(function(req, res) { users.deleteUser(req, res, req.params.user_id) });
 
-router.route('/handle_twitter_callback')
-    .get(function(req, res) {
-        console.log(req);
-    });
+router.route('/login')
+    .get(function(req, res) { users.findOrCreateByTwitterID(req, res) });
 
 module.exports = router;
-
-// module.exports = function(app) {
-//   // Install a "/ping" route that returns "pong"
-// }
