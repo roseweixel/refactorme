@@ -12,10 +12,13 @@ module.exports.addUser = function(req, res) {
 };
 
 module.exports.getAllUsers = function(req, res) {
+    var session = req.session;
+    console.log(session.user_id);
     User.find(function(err, users) {
         if (err) {
             res.send(err);
         }
+        console.log(req.session);
         res.json({users: users});
     })
 };
@@ -29,8 +32,12 @@ module.exports.getSingleUser = function(req, res, id) {
     });
 };
 
-module.exports.findOrCreateByTwitterID = function(req, res) {
+module.exports.logOutUser = function(req, res) {
+    req.session.destroy();
+    res.redirect('http://localhost:4200/users/');
+};
 
+module.exports.findOrCreateByTwitterID = function(req, res) {
     var twitterID = req.query.twitterID;
 
     User.findOne({twitterID: twitterID}, function (err, user){
@@ -41,7 +48,9 @@ module.exports.findOrCreateByTwitterID = function(req, res) {
                 if (err) {
                     res.send(err);
                 }
-                console.log({user: user});
+                console.log(req.session);
+                req.session.user_id = user.id;
+                req.session.save();
                 res.redirect('http://localhost:4200/users/' + user.id);
             });
         } else {
@@ -49,6 +58,8 @@ module.exports.findOrCreateByTwitterID = function(req, res) {
                 if (err) {
                     res.send(err);
                 }
+                req.session.user_id = user.id;
+                req.session.save();
                 res.redirect('http://localhost:4200/users/' + user.id);
             });
         }

@@ -31,4 +31,7 @@ router.route('/users/:user_id')
 router.route('/login')
     .get(function(req, res) { users.findOrCreateByTwitterID(req, res) });
 
+router.route('/logout')
+    .get(function(req, res) { users.logOutUser(req, res) });
+
 module.exports = router;

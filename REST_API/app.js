@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 mongoose.connect('mongodb://localhost/refactorme');
 
@@ -48,8 +49,8 @@ app.use(cookieParser());
 app.use(allowCrossDomain);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  name: 'grant', secret: 'very secret',
-  saveUninitialized: true, resave: true
+  name: 'grant', store: new MongoStore({ url: 'mongodb://localhost/refactorme' }), secret: 'very secret',
+  saveUninitialized: true, resave: false
 }));
 app.use(grant);
 
@@ -91,7 +92,6 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  // console.log(req);
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
@@ -101,4 +101,3 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
-
